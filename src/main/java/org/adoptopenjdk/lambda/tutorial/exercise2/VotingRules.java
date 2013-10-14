@@ -27,6 +27,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Class representing voting rules in an election
@@ -41,8 +44,6 @@ public class VotingRules {
      * @return a list of eligible voters
      */
     public static List<Person> eligibleVoters(List<Person> potentialVoters, int legalAgeOfVoting) {
-        // [your code here]
-
-        return Collections.emptyList();
+        return potentialVoters.stream().filter(p -> p.getAge() > legalAgeOfVoting).collect(toList());
     }
 }

@@ -28,6 +28,8 @@ import java.util.Set;
 
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toSet;
+
 /**
  * Domain object representing a collection of books
  */
@@ -40,9 +42,7 @@ public class Books {
      * @return list of book titles
      */
     public static List<String> titlesOf(List<Book> books) {
-        // [your code here]
-        
-        return Collections.emptyList();
+        return books.stream().map(b -> b.getTitle()).collect(Collectors.toList());
     }
 
     /**
@@ -52,9 +52,9 @@ public class Books {
      * @return list of author full names
      */
     public static List<String> namesOfAuthorsOf(List<Book> books) {
-        // [your code here]
-        
-        return Collections.emptyList();
+        return books.stream().map(b -> b.getAuthor())
+                .map(a -> a.getFirstName() + " " + a.getLastName())
+                .collect(Collectors.toList());
     }
 
     /**
@@ -64,8 +64,6 @@ public class Books {
      * @return set of publishers
      */
     public static Set<Publisher> publishersRepresentedBy(List<Book> books) {
-        // [your code here]
-
-        return Collections.emptySet();
+        return books.stream().map(b -> b.getPublisher()).collect(toSet());
     }
 }

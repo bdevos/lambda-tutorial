@@ -41,7 +41,7 @@ public class Documents {
      */
     public static List<String> titlesOf(Document... documents) {
         return Arrays.stream(documents)
-                .map(d -> d.getTitle())
+                .map(Document::getTitle)
                 .collect(toList());
     }
 
@@ -51,7 +51,7 @@ public class Documents {
 
     public static List<Integer> pageCharacterCounts(Document document) {
         return document.getPages().stream()
-                .map(doc -> Documents.characterCount(doc))
+                .map(Documents::characterCount)
                 .collect(toList());
     }
 
@@ -60,8 +60,8 @@ public class Documents {
 
         output.append(pagePrinter.printTitlePage(document));
         document.getPages().stream()
-                .map(p -> pagePrinter.printPage(p))
-                .forEach(s -> output.append(s));
+                .map(pagePrinter::printPage)
+                .forEach(output::append);
 
         return output.toString();
     }
@@ -70,7 +70,7 @@ public class Documents {
         return document.getPages().stream()
                 .map(page -> page.getContent())
                 .map(content -> translator.translate(content))
-                .map(translated -> new Page(translated))
+                .map(Page::new)
                 .collect(collectingAndThen(toList(),
                                            pages -> new Document(translator.translate(document.getTitle()), pages)));
     }
